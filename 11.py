@@ -23,8 +23,14 @@ words=contents.split()
 glass_name = input("Enter the exact name of glass :  ")
 if glass_name in words:
     print('Glass name is in the catalog')
-    print(words.index('N-SK10'))
-    print(words[19581])
 else:
     print('There is no such type of glass in the catalog')    
     
+#find the index of the that glass name and its data
+print('Glass name is ' + glass_name)
+#print(words.index(glass_name))
+x=int(words.index(glass_name))
+print('Glass dispersion formula number is ' + words[x+1])
+
+#Different formula for different numbers
+
