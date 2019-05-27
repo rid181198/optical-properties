@@ -23,14 +23,40 @@ words=contents.split()
 glass_name = input("Enter the exact name of glass :  ")
 if glass_name in words:
     print('Glass name is in the catalog')
+    
+    #find the index of the that glass name and its data
+    print('Glass name is ' + glass_name)
+    #print(words.index(glass_name))
+    x=int(words.index(glass_name))
+    print('Glass dispersion formula number is ' + words[x+1] + ' and dispersion formula is sellmeier 1')
+    
+
+    #Different formula for different numbers
+    #Find the total number of lines and no. of line with specific glass name
+    i=0
+    j=0
+    with open("c:/schottzemax-20180601.agf") as file:
+        lines = file.readlines()
+    for line in lines:
+       # print(line.rstrip())
+        if glass_name in line:
+         #line number with that glass name
+         print(j)
+         
+         with open("c:/schottzemax-20180601.agf") as file:
+             lines = file.readlines()
+             #display constants for formula
+             print(lines[j+3])
+        j=j+1
+         
+    #Total lines
+    #print(j)
+    
+    
+
+            
+    
 else:
     print('There is no such type of glass in the catalog')    
     
-#find the index of the that glass name and its data
-print('Glass name is ' + glass_name)
-#print(words.index(glass_name))
-x=int(words.index(glass_name))
-print('Glass dispersion formula number is ' + words[x+1])
-
-#Different formula for different numbers
 
