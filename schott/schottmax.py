@@ -6,6 +6,7 @@ Created on Thu May 23 23:21:16 2019
 """
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 #doing for only one file  "schott"
 with open("c:/schottzemax-20180601.agf") as file:
@@ -91,15 +92,31 @@ if glass_name in words:
     L3 = float(constants_list[6])
     
     V=np.arange(x,y,0.1)
-    n = (1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))**1/2    
+    n = np.sqrt(1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))  
     X=V/100000
     plt.plot(X,n,'r-')
+    plt.xlabel('Wavelength \u03BB (micrometer) ' , fontsize= 14)
+    plt.ylabel('Refractive Index n ' , fontsize = 14 )
     #raw data
-    #for V in range(x,y):
-        #n = (1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))**1/2
+    #for V in range(x,y,1):
+        #n = np.sqrt(1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))
         #print('\n')
         #print(float(n))   
-       
+        
+    
+
+    #To find abbe number
+    def abbe(V):
+        n = np.sqrt(1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))
+        return n   
+    nD = abbe(58920)
+    nF = abbe(48610)
+    nV = abbe(65630)
+    #put the values in abbe formula
+    abbe1 = (float(nD) -1.0000000)/(float(nF)-float(nV))
+    print("\nAbbe number of this glass type is,  " )
+    print(float(abbe1))
+
 else:
     print('There is no such type of glass in the catalog')    
 

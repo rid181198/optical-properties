@@ -6,6 +6,7 @@ Created on Thu May 23 23:21:16 2019
 """
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 #doing for only one file  "ohara"
 with open("c:/ohara-2018-10-19.agf") as file:
@@ -86,14 +87,29 @@ if glass_name in words:
     A5 = float(constants_list[6])
     
     V=np.arange(x,y,0.1)
-    n = (A0 + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V))))**1/2    
+    n=((A0) + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V))))**(1/2)
     X=V/100000
     plt.plot(X,n,'r-')
+    plt.xlabel('Wavelength \u03BB (micrometer) ' , fontsize= 14)
+    plt.ylabel('Refractive Index n ' , fontsize = 14 )
     #raw data
     #for V in range(x,y):
-        #n = (A0 + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V))))**1/2    
+        #n = np.sqrt(A0 + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V))))
         #print('\n')
-        #print(float(n))   
+        #print(float(n))  
+        
+     #To find abbe number
+    def abbe(V):
+         n = np.sqrt((A0 + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V)))))
+         return n   
+    nD = abbe(58920)
+    nF = abbe(48610)
+    nV = abbe(65630)
+    #put the values in abbe formula
+    abbe1 = (float(nD) -1.0000000)/(float(nF)-float(nV))
+    print("\nAbbe number of this glass type is,  " )
+    print(float(abbe1))
+
        
 else:
     print('There is no such type of glass in the catalog')    
