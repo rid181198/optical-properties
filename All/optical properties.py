@@ -8,72 +8,79 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+#providing condition for specific glass type by its name i.e. N-SK10
+glass_name = input("\nEnter the name of glass type :  ")
+
 for filename in os.listdir("c:/AGF"):
     file_string=str(filename)
     with open('c:/AGF/'+file_string) as file:
         contents=file.read()
         #print(contents)
-    words=contents.split()
+    file_contents_list=contents.split()
     
     
-    #providing condition for specific glass type by its name i.e. N-SK10
-    glass_name = input("\nEnter the name of glass type :  ")
-    if glass_name in words:
+    if glass_name in file_contents_list:
          #with open('c:/AGF/'+file_string) as file:
             # contents=file.read()
              #print(contents)
              #words=contents.split()
-             print('Glass name is in the '+ file_string + ' catalog')
+             print('\nGlass name is in the '+ file_string + ' catalog')
              #find the index of the that glass name and its data
              print('\nGlass name is ' + glass_name)
              #print(words.index(glass_name))
-             x=int(words.index(glass_name))
+             x=int(file_contents_list.index(glass_name))
         
              #find the index of formula number
-             formula_number=words[x+1]
+             formula_number=file_contents_list[x+1]
              
              #Different formula for different numbers
              #Find the total number of lines and no. of line with specific glass name
-             j=0
+             
              with open('c:/AGF/'+file_string) as file:
-                 lines = file.readlines()
-             for line in lines:
+                 #file_contents is list
+                 file_contents = file.readlines()
+             j=0    
+             for file_lines in file_contents:
                      # print(line.rstrip())
-                     if glass_name in line:
-                         #line number with that glass name
+                     if glass_name in file_lines :
+                             #line number with that glass name
+                             print('\nGlass name is in the '+ file_string + ' catalog')
+                             #find the index of the that glass name and its data
+                             print('\nGlass name is ' + glass_name)
+                             #print(words.index(glass_name))
+                             x=int(file_contents_list.index(glass_name))
                          
-                         with open('c:/AGF/'+file_string) as file:
-                             lines = file.readlines()
-                             #display constants for formula
-                             constants = lines[j+3]
-                             
-                             #formula validity within that range
-                             validity_range = lines[j+6]
-                             #print(validity_range)
-                             validity_list = validity_range.split()
-                             
-                             #for temperature
-                             temp=lines[j+4]
-                             temp_list=temp.split()
+                             #find the index of formula number
+                             formula_number=file_contents_list[x+1]
+                         
+                             for file_lines in file_contents[j:j+20]:
+                                 #display constants for formula
+                                 if 'CD' in file_lines:
+                                     constants_list = file_lines.split()
+                                     
+                                 #wavelength range list    
+                                 if 'LD' in file_lines:
+                                     wavelength_ranges_list = file_lines.split()
+                                     
+                                 #temperature list     
+                                 if 'TD' in file_lines:
+                                    temperature_list = file_lines.split()
                      j=j+1
                             
              #Total lines
              #print(j)
                             
-             #display constants values
-             constants_list=constants.split()
-                            
              #display the validity range
              print("\nWavelength range for validity of the dispersion formula, ")
-             print("\nMinimum wavelenth is " + validity_list[1] + ' micrometer ' + 'and Maximum wavelength is  ' + validity_list[2]+' micrometer')
+             print("\nMinimum wavelenth is " + wavelength_ranges_list[1] + ' micrometer ' + 'and Maximum wavelength is  ' + wavelength_ranges_list[2]+' micrometer')
                             
              #conversion for range in loop
-             x=int(float(validity_list[1])*100000)
-             y=int(float(validity_list[2])*100000)
+             min_wavelength=float(wavelength_ranges_list[1])
+             max_wavelength=float(wavelength_ranges_list[2])
                             
                             
              #display temperature
-             print("\nAtmosphere temperature is " + temp_list[7]+ ' celcius')
+             print("\nAtmosphere temperature is " + temperature_list[7]+ ' celcius')
                             
                             
              #defining function or data set for each formula
@@ -94,11 +101,11 @@ for filename in os.listdir("c:/AGF"):
                                  L3 = float(constants_list[6])
                                 
                                  #plot refractive index vs wavelength    
-                                 V=np.arange(x,y,0.1)
-                                 n = np.sqrt(1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))  
-                                 X=V/100000
+                                 wavelength=np.arange(min_wavelength,max_wavelength,0.0001)
+                                 n = np.sqrt(1.0000000000 + (K1*(wavelength*wavelength)/(wavelength*wavelength - L1)) + (K2*wavelength*wavelength/(wavelength*wavelength - L2)) + (K3*wavelength*wavelength/(wavelength*wavelength - L3)))  
+                                 X=wavelength*1000
                                  plt.plot(X,n,'r-')
-                                 plt.xlabel('Wavelength \u03BB (micrometer) ' , fontsize= 14)
+                                 plt.xlabel('Wavelength \u03BB (nm) ' , fontsize= 14)
                                  plt.ylabel('Refractive Index n ' , fontsize = 14 )
                                  
                                  #raw data
@@ -108,14 +115,14 @@ for filename in os.listdir("c:/AGF"):
                                  #print(float(n))   
                                  
                                  #To find abbe number
-             def abbe_sellmeier1(V):
+             def abbe_sellmeier1(wavelength):
                                      K1 = float(constants_list[1])
                                      L1 = float(constants_list[2])
                                      K2 = float(constants_list[3])
                                      L2 = float(constants_list[4])
                                      K3 = float(constants_list[5])
                                      L3 = float(constants_list[6])
-                                     n = np.sqrt(1.0000000000 + (K1*(V*V/10000000000)/((V*V/10000000000) - L1)) + (K2*(V*V/10000000000)/((V*V/10000000000) - L2)) + (K3*(V*V/10000000000)/((V*V/10000000000) - L3)))
+                                     n = np.sqrt(1.0000000000 + (K1*(wavelength*wavelength)/(wavelength*wavelength - L1)) + (K2*wavelength*wavelength/(wavelength*wavelength - L2)) + (K3*wavelength*wavelength/(wavelength*wavelength - L3)))
                                      return n   
                                  
                                  
@@ -135,11 +142,11 @@ for filename in os.listdir("c:/AGF"):
                                       A4 = float(constants_list[5])
                                       A5 = float(constants_list[6])
                                      
-                                      V=np.arange(x,y,0.1)
-                                      n=((A0) + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V))))**(1/2)
-                                      X=V/100000
+                                      wavelength=np.arange(min_wavelength,max_wavelength,0.0001)
+                                      n=((A0) + (A1*(wavelength*wavelength)) + (A2/(wavelength*wavelength)) + (A3/(wavelength*wavelength*wavelength*wavelength)) + (A4/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)) + (A5/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)))**(1/2)
+                                      X=wavelength*1000
                                       plt.plot(X,n,'r-')
-                                      plt.xlabel('Wavelength \u03BB (micrometer) ' , fontsize= 14)
+                                      plt.xlabel('Wavelength \u03BB (nm) ' , fontsize= 14)
                                       plt.ylabel('Refractive Index n ' , fontsize = 14 )
                                       #raw data
                                       #for V in range(x,y):
@@ -148,29 +155,45 @@ for filename in os.listdir("c:/AGF"):
                                       #print(float(n))  
                                     
                                       #To find abbe number
-             def abbe_schott(V):
+             def abbe_schott(wavelength):
                                         A0 = float(constants_list[1])
                                         A1 = float(constants_list[2])
                                         A2 = float(constants_list[3])
                                         A3 = float(constants_list[4])
                                         A4 = float(constants_list[5])
                                         A5 = float(constants_list[6])
-                                        n = np.sqrt((A0 + (A1*((V*V)/10000000000)) + (A2*(10000000000/(V*V))) + (A3*(100000000000000000000/(V*V*V*V))) + (A4*(1000000000000000000000000000000/(V*V*V*V*V*V))) + (A5*(10000000000000000000000000000000000000000/(V*V*V*V*V*V*V*V)))))
+                                        n=((A0) + (A1*(wavelength*wavelength)) + (A2/(wavelength*wavelength)) + (A3/(wavelength*wavelength*wavelength*wavelength)) + (A4/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)) + (A5/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)))**(1/2)
                                         return n   
                                     
-                             #formula 1(schott)
+             #formula 1(schott)
              if formula_number == '1' :
                                         #calling function
                                         schott()
                                         
-                                        nD = abbe_schott(58920)
-                                        nF = abbe_schott(48610)
-                                        nV = abbe_schott(65630)
+                                        nD = abbe_schott(0.58920)
+                                        nF = abbe_schott(0.48610)
+                                        nV = abbe_schott(0.65630)
                                         
                                         #put the values in abbe formula
                                         abbe1 = (float(nD) -1.0000000)/(float(nF)-float(nV))
                                         print("\nAbbe number of this glass type is,  " )
                                         print(float(abbe1))
+                                        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
+                                        if get_refractive_index == 'y':
+                                            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
+                                            wavelength = float(wavelength)/1000
+                                            A0 = float(constants_list[1])
+                                            A1 = float(constants_list[2])
+                                            A2 = float(constants_list[3])
+                                            A3 = float(constants_list[4])
+                                            A4 = float(constants_list[5])
+                                            A5 = float(constants_list[6])
+                                            n=((A0) + (A1*(wavelength*wavelength)) + (A2/(wavelength*wavelength)) + (A3/(wavelength*wavelength*wavelength*wavelength)) + (A4/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)) + (A5/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)))**(1/2)
+                                            print(n)
+                                        else:
+                                            break 
+                                            
+                                            
                                         
                                         
                                         #formula 2(sellmeier)     
@@ -178,14 +201,30 @@ for filename in os.listdir("c:/AGF"):
                                             #calling function
                                             sellmeier1()    
                                             
-                                            nD = abbe_sellmeier1(58920)
-                                            nF = abbe_sellmeier1(48610)
-                                            nV = abbe_sellmeier1(65630)
+                                            nD = abbe_sellmeier1(0.58920)
+                                            nF = abbe_sellmeier1(0.48610)
+                                            nV = abbe_sellmeier1(0.65630)
                                             
                                             #put the values in abbe formula
                                             abbe1 = (float(nD) -1.0000000)/(float(nF)-float(nV))
                                             print("\nAbbe number of this glass type is,  " )
                                             print(float(abbe1))
+                                            get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
+                                            if get_refractive_index == 'y':
+                                                wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
+                                                wavelength = float(wavelength)/1000
+                                                K1 = float(constants_list[1])
+                                                L1 = float(constants_list[2])
+                                                K2 = float(constants_list[3])
+                                                L2 = float(constants_list[4])
+                                                K3 = float(constants_list[5])
+                                                L3 = float(constants_list[6])
+                                                n = np.sqrt(1.0000000000 + (K1*(wavelength*wavelength)/(wavelength*wavelength - L1)) + (K2*wavelength*wavelength/(wavelength*wavelength - L2)) + (K3*wavelength*wavelength/(wavelength*wavelength - L3))) 
+                                                print(n)
+                                            else:
+                                                break 
                                             
     else:
         print('\nThere is no glass with name ' + glass_name + ' in file ' + filename)
+        
+#save the output in file
