@@ -4,7 +4,6 @@ Created on Wed May 29 14:42:32 2019
 
 @author: crystal
 """
-import numpy as np
 import os
 import Formulas as fp
 
@@ -18,7 +17,7 @@ for filename in os.listdir("c:/AGF"):
     #open each of the file here file_string is name of the each file
     with open('c:/AGF/'+file_string) as file:
         
-        #file_contents is list of contents of files
+        #file_contents_list is list of contents of files
         contents=file.read()
     file_contents_list = contents.split()
         
@@ -166,50 +165,16 @@ for filename in os.listdir("c:/AGF"):
     
              A0 = float(constants_list[1])
              A1=A2=A3=A4=A5=A6=A7=A8=A9=0
-                 
-         #formula 1(schott)
-         if formula_number == '1' :
-             #calling function
-             fp.schott(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
-                                        
-             while True:
-                
-                 get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-                 if get_refractive_index == 'y':
-                     wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-                     wavelength = float(wavelength)/1000
-                     A0 = float(constants_list[1])
-                     A1 = float(constants_list[2])
-                     A2 = float(constants_list[3])
-                     A3 = float(constants_list[4])
-                     A4 = float(constants_list[5])
-                     A5 = float(constants_list[6])
-                     n=((A0) + (A1*(wavelength*wavelength)) + (A2/(wavelength*wavelength)) + (A3/(wavelength*wavelength*wavelength*wavelength)) + (A4/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)) + (A5/(wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength*wavelength)))**(1/2)
-                     print(n)
-                 else:
-                     break 
-                
-         #formula 2(sellmeier)     
-         elif formula_number == '2':
-             #calling function
-             fp.sellmeier1(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
-             while True:
-                                                
-                 get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-                 if get_refractive_index == 'y':
-                     wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-                     wavelength = float(wavelength)/1000
-                     K1 = float(constants_list[1])
-                     L1 = float(constants_list[2])
-                     K2 = float(constants_list[3])
-                     L2 = float(constants_list[4])
-                     K3 = float(constants_list[5])
-                     L3 = float(constants_list[6])
-                     n = np.sqrt(1.0000000000 + (K1*(wavelength*wavelength)/(wavelength*wavelength - L1)) + (K2*wavelength*wavelength/(wavelength*wavelength - L2)) + (K3*wavelength*wavelength/(wavelength*wavelength - L3))) 
-                     print(n)
-                 else:
-                     break 
-                                            
+             
+             
+         formulas_dictionary = {1: 'schott' , 2: 'sellmeier1' , 3: 'sellmeier2' , 4 : 'sellmeier3' , 5 : 'sellmeier4' , 6 : 'sellmeier5', 7 : 'herzberger' , 8 : 'condrady' , 9 : 'handbook_optics1', 10 :'handbook_optics2' , 11 : 'extended1', 12 : 'extended2', 13 : 'extended3' }
+        
+         for formulas_number in formulas_dictionary.keys():
+             if formulas_number == int(formula_number) :
+                 formula_name1 = formulas_dictionary[formulas_number]
+                 print('\nFormula name is  :  ' + formula_name1)
+                 fp.formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
+                             
     else:
             print('\nThere is no glass with name ' + glass_name + ' in file ' + filename) 
 #save the output in file
