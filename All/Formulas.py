@@ -7,14 +7,21 @@ Created on Thu May 30 12:00:25 2019
 
 import numpy as np
 import matplotlib.pyplot as plt
-#def main_func():
-  #  print('Hello World')
-    
-    
-#if __name__=="__main__":
- #   main_func()
- 
- 
+
+#query function
+def name_formula(abbe_name_formula):
+    while True:
+        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
+        if get_refractive_index == 'y':
+            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
+            wavelength = float(wavelength)/1000
+           
+            print("\nRefractive index is  ")
+            print(abbe_name_formula(wavelength)) 
+        else:
+            break 
+        
+        
 #defining function or data set for each formula
 def describtion_glass(glass_name,formula_number,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9):
     
@@ -48,6 +55,7 @@ def plot(n,wavelength):
      plt.plot(wavelength_nanometer,n,'r-')
      plt.xlabel('Wavelength \u03BB (nm) ' , fontsize= 14)
      plt.ylabel('Refractive Index n ' , fontsize = 14 )
+     plt.savefig('plot of refractive-index.png')
      
      
      
@@ -70,17 +78,9 @@ def schott(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A
     abbe_number = (abbe_schott(0.5892)-1)/(abbe_schott(0.4861)-abbe_schott(0.6563))
     print("Abbe number of this glass type is  " )
     print(abbe_number) 
-    
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-            print("\nwavelength is  ")
-            print(abbe_schott(wavelength))
-        else:
-            break 
+  
+    #calling function for query function
+    name_formula(abbe_schott)
     
 
     
@@ -104,21 +104,9 @@ def sellmeier1(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,
     abbe_number = (abbe_sellmeier1(0.5892)-1)/(abbe_sellmeier1(0.4861)-abbe_sellmeier1(0.6563))
     print("Abbe number of this glass type is  ")
     print(abbe_number)
-    
-    
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-            print("\nwavelength is  ")
-            print(abbe_sellmeier1(wavelength)) 
-        else:
-            break 
 
-    
-    
+    #calling function for query function
+    name_formula(abbe_sellmeier1)    
 
 
 
@@ -141,17 +129,8 @@ def sellmeier2(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,
     print("Abbe number of this glass type is  ")
     print(abbe_number)
     
-    
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-            print("\nwavelength is  ")
-            print(abbe_sellmeier2(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_sellmeier2)
     
 
 
@@ -176,19 +155,8 @@ def sellmeier3(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,
     print("Abbe number of this glass type is  ")
     print(abbe_number)
     
-    
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-
-            print("\nwavelength is  ")
-            print(abbe_sellmeier3(wavelength)) 
-        else:
-            break 
-
+    #calling function for query function
+    name_formula(abbe_sellmeier3)
 
 
 
@@ -211,19 +179,9 @@ def sellmeier4(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,
     abbe_number = (abbe_sellmeier4(0.5892)-1)/(abbe_sellmeier4(0.4861)-abbe_sellmeier4(0.6563))
     print("Abbe number of this glass type is  ")
     print(abbe_number)
-
-
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-         
-            print("\nwavelength is  ")
-            print(abbe_sellmeier4(wavelength)) 
-        else:
-            break 
+    
+    #calling function for query function
+    name_formula(abbe_sellmeier4)
 
 
 
@@ -245,17 +203,8 @@ def sellmeier5(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-           
-            print("\nwavelength is  ")
-            print(abbe_sellmeier5(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_sellmeier5)
 
 
 
@@ -278,19 +227,8 @@ def herzberger(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,
     print("Abbe number of this glass type is  ")
     print(abbe_number)
     
-    
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-         
-            print("\nwavelength is  ")
-            print(abbe_herzberger(wavelength)) 
-        else:
-            break 
-
+    #calling function for query function
+    name_formula(abbe_herzberger)
 
 
 
@@ -312,18 +250,8 @@ def condrady(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
-
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-           
-            print("\nwavelength is  ")
-            print(abbe_condrady(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_condrady)
 
 
 
@@ -345,18 +273,8 @@ def handbook_optics1(glass_name,formula_number,min_wavelength,max_wavelength,A0,
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
-
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-           
-            print("\nwavelength is  ")
-            print(abbe_handbook_optics1(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_handbook_optics1)
 
 
 def handbook_optics2(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9):
@@ -377,18 +295,9 @@ def handbook_optics2(glass_name,formula_number,min_wavelength,max_wavelength,A0,
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
-
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-            
-            print("\nwavelength is  ")
-            print(abbe_handbook_optics2(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_handbook_optics2)
+    
 
 
 def extended1(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9):
@@ -409,17 +318,8 @@ def extended1(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
-
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-  
-            print("\nwavelength is  ")
-            print(abbe_extended1(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_extended1)
 
 
 
@@ -441,18 +341,8 @@ def extended2(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
-
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-           
-            print("\nwavelength is  ")
-            print(abbe_extended2(wavelength)) 
-        else:
-            break 
+    #calling function for query function
+    name_formula(abbe_extended2)
 
 
 
@@ -474,20 +364,12 @@ def extended3(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A
     print("Abbe number of this glass type is  ")
     print(abbe_number)
 
+    #calling function for query function
+    name_formula(abbe_extended3)
+        
+        
     
-    #query
-    while True:
-        get_refractive_index = input("\nDo you want to get refractive index of specific wavelength (y/n) :  " )
-        if get_refractive_index == 'y':
-            wavelength = input("\n\n Please enter the wavelength in nanometer :  ")
-            wavelength = float(wavelength)/1000
-       
-            print("\nwavelength is  ")
-            print(abbe_extended3(wavelength)) 
-        else:
-            break 
-        
-        
+    
 #to check formula number and name         
 def formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9):
     
@@ -517,6 +399,3 @@ def formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wave
             extended2(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
         if formula_name1 == 'extended3':
             extended3(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
-            
-        else :
-            print("There is no dispersion formula for this glass type")

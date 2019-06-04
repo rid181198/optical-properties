@@ -5,7 +5,7 @@ Created on Wed May 29 14:42:32 2019
 @author: crystal
 """
 import os
-import Formulas as fp
+import Formulas as formula_file
 
 #providing specific glass type by its name i.e. N-SK10
 glass_name = input("\nEnter the name of glass type :  ")
@@ -49,7 +49,7 @@ def optical_descibtion_glass(glass_name):
                         #display constants for formula
                         if 'CD' in file_lines:
                             constants_list = file_lines.split()
-                            length = len(constants_list)
+                            length_constants = len(constants_list)
             
                         #wavelength range list    
                         if 'LD' in file_lines:
@@ -76,7 +76,7 @@ def optical_descibtion_glass(glass_name):
           
          
             #define the constants as per length of line in the file
-            if length == 11:
+            if length_constants == 11:
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
                  A2 = float(constants_list[3])
@@ -87,7 +87,7 @@ def optical_descibtion_glass(glass_name):
                  A7 = float(constants_list[8])
                  A8 = float(constants_list[9])
                  A9 = float(constants_list[10])
-            if length == 10:
+            if length_constants == 10:
             
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
@@ -100,7 +100,7 @@ def optical_descibtion_glass(glass_name):
                  A8 = float(constants_list[9])
                  A9=0
 
-            if length == 9:
+            if length_constants == 9:
     
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
@@ -112,7 +112,7 @@ def optical_descibtion_glass(glass_name):
                  A7 = float(constants_list[8])
                  A8=A9=0
              
-            if length == 8 :
+            if length_constants == 8 :
     
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
@@ -123,7 +123,7 @@ def optical_descibtion_glass(glass_name):
                  A6 = float(constants_list[7])
                  A7=A8=A9=0
                  
-            if length == 7:
+            if length_constants == 7:
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
                  A2 = float(constants_list[3])
@@ -132,7 +132,7 @@ def optical_descibtion_glass(glass_name):
                  A5 = float(constants_list[6])
                  A6=A7=A8=A9=0
                      
-            if length == 6 :
+            if length_constants == 6 :
     
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
@@ -141,27 +141,27 @@ def optical_descibtion_glass(glass_name):
                  A4 = float(constants_list[5])
                  A5=A6=A7=A8=A9=0
                  
-            if length == 5:
+            if length_constants == 5:
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
                  A2 = float(constants_list[3])
                  A3 = float(constants_list[4])
                  A4=A5=A6=A7=A8=A9=0
                  
-            if length == 4:
+            if length_constants == 4:
     
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
                  A2 = float(constants_list[3])
                  A3=A4=A5=A6=A7=A8=A9=0
                  
-            if length == 3:
+            if length_constants == 3:
     
                  A0 = float(constants_list[1])
                  A1 = float(constants_list[2])
                  A2=A3=A4=A5=A6=A7=A8=A9=0
              
-            if length == 2:
+            if length_constants == 2:
     
                  A0 = float(constants_list[1])
                  A1=A2=A3=A4=A5=A6=A7=A8=A9=0
@@ -174,7 +174,7 @@ def optical_descibtion_glass(glass_name):
                 if formulas_number == int(formula_number) :
                     formula_name1 = formulas_dictionary[formulas_number]
                     print('\nFormula name is  :  ' + formula_name1)
-                    fp.formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
+                    formula_file.formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
                              
         else:
             print('\nThere is no glass with name ' + glass_name + ' in file ' + filename) 
