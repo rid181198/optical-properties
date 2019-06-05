@@ -6,11 +6,12 @@ Created on Wed May 29 14:42:32 2019
 """
 import os
 import Formulas as formula_file
+import Thermal_analysis as thermal_file
 
 #providing specific glass type by its name i.e. N-SK10
 glass_name = input("\nEnter the name of glass type :  ")
 
-def optical_descibtion_glass(glass_name):
+def optical_describtion_glass(glass_name):
     
     #open the directory and files
     for filename in os.listdir(os.path.abspath('AGF\\')):
@@ -58,6 +59,7 @@ def optical_descibtion_glass(glass_name):
                         #temperature list     
                         if 'TD' in file_lines:
                             temperature_list = file_lines.split()
+                            
                 j=j+1
                             
             #Total lines
@@ -72,8 +74,7 @@ def optical_descibtion_glass(glass_name):
             max_wavelength=float(wavelength_ranges_list[2])
          
             #print the temperature of that glass
-            print("\nAtmosphere temperature is " + temperature_list[7]+ ' celcius')
-          
+            print("\nReference temperature is " + temperature_list[7]+ ' celcius')
          
             #define the constants as per length of line in the file
             if length_constants == 11:
@@ -175,11 +176,15 @@ def optical_descibtion_glass(glass_name):
                     formula_name1 = formulas_dictionary[formulas_number]
                     print('\nFormula name is  :  ' + formula_name1)
                     formula_file.formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
-                             
+            
+            thermal_file.thermal_describtion_glass(temperature_list,formula_number,formula_name1,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
+            
+            
+            
         else:
             print('\nThere is no glass with name ' + glass_name + ' in file ' + filename) 
 
 if __name__ == "__main__":
-    optical_descibtion_glass(glass_name)
+    optical_describtion_glass(glass_name)
     
 #save the output in file
