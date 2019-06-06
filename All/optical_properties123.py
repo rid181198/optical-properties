@@ -177,7 +177,7 @@ def optical_describtion_glass(glass_name):
                     print('\nFormula name is  :  ' + formula_name1)
                     formula_file.formula_name(formula_name1,glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
             
-            thermal_file.thermal_describtion_glass(temperature_list,formula_number,formula_name1,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
+            thermal_file.thermal_describtion_glass(glass_name,temperature_list,formula_number,formula_name1,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
             
             
             
