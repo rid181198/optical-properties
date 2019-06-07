@@ -9,7 +9,7 @@ import Formulas as formula_file
 import Thermal_analysis as thermal_file
 
 #providing specific glass type by its name i.e. N-SK10
-glass_name = input("\nEnter the name of glass type :  ")
+
 
 def optical_describtion_glass(glass_name):
     
@@ -185,6 +185,7 @@ def optical_describtion_glass(glass_name):
             print('\nThere is no glass with name ' + glass_name + ' in file ' + filename) 
 
 if __name__ == "__main__":
+    glass_name = input("\nEnter the name of glass type :  ")
     optical_describtion_glass(glass_name)
     
 #save the output in file

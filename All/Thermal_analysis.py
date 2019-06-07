@@ -38,7 +38,7 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
     
     
     while True:
-        response = input("Do you want to comparision with different wavelengths of same glass type for ABSOLUTE REFRACTIVE INDEX WITH TEMPERATURE(y/n)  :  ")
+        response = input("Do you want to comparision with different wavelengths of same glass type for DERIVATIVE OF ABSOLUTE REFRACTIVE INDEX WITH TEMPERATURE(y/n)  :  ")
         if response == 'y':
           
             #get input of wavelength in nanometer and temperature in celcius
@@ -115,7 +115,8 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
             wavelength = wavelength/1000
             P = float(input("\nEnter the pressure (Pa) to find refractive index :  "))
             #print the refractive index of particular wavelength at reference temperature
-            n0 = formula_file.formula_thermal_name(formula_name1,wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
+            n0 = formula_file.formula_thermal_name(formula_name1,wavelength,\
+                                                   A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
             
             plot_name2 = str(glass_name+ '_'+formula_number)
             T = np.arange(-100,140,0.01)
@@ -131,7 +132,7 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
     
     #plot for relative change
     while True:
-        response = input("Do you want to get comaparison between different wavelengths of same glass type for RELATIVE REFRACTIVE INDEX CHANGE WITH TEMPERATURE (y/n) :  ")
+        response = input("Do you want to get comaparison between different wavelengths of same glass type for DERIVATIVE OF RELATIVE REFRACTIVE INDEX CHANGE WITH TEMPERATURE (y/n) :  ")
         if response == 'y':
             
             #get input of wavelength in nanometer
@@ -141,7 +142,8 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
             P = float(input("\nEnter the pressure (Pa) to find refractive index :  "))
             
             #print the refractive index of particular wavelength at reference temperature
-            n0 = formula_file.formula_thermal_name(formula_name1,wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
+            n0 = formula_file.formula_thermal_name(formula_name1,wavelength,\
+                                                   A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
             print("\nRefractive index at reference temperature is n0 :  ",end= '')
             print(float(n0))
             
