@@ -109,6 +109,7 @@ def schott(glass_name,formula_number,min_wavelength,max_wavelength,A0,A1,A2,A3,A
     #calling function for query function
     name_formula(abbe_schott,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9) 
     
+    
 
     
 
@@ -588,3 +589,5 @@ def formula_thermal_name(formula_name1,wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
         if formula_name1 == 'extended3':
             n0 = abbe_extended3(wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
             return n0
+
+
