@@ -4,24 +4,39 @@ Created on Mon Jun 10 14:20:19 2019
 
 @author: crystal
 """
-import numpy as np
-import matplotlib.pyplot as plt
 import Formulas as formula_file
 import os
 from prettytable import PrettyTable
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-url='https://refractiveindex.info/?shelf=glass&book=OHARA-PBH&page=PBH1'
-html = urlopen(url)
+url_g='https://refractiveindex.info/?shelf=glass&book=BK7&page=SCHOTT'
+html = urlopen(url_g)
 soup = BeautifulSoup(html, 'lxml')
 
-items = soup.select('option[value]')
-values = [item.get('value') for item in items]
-print(values)
+#for glass catalog
+opt_group = soup.find_all('optgroup')
+print("Please select the catalog book for validation from below list and enter option value attribute")
 
-glass_catalog = input("Select the glass catalog and enter the name : ")
-glass_name = input("Enter the glass name :  ")
+for i in range(len(opt_group)):
+    print("\n")
+    print(opt_group[i])
+ 
+glass_catalog = input("Enter the name of glass catalog :  ")
+
+#for glass name
+url1_c = 'https://refractiveindex.info/?shelf=glass&book='
+url2_c = glass_catalog
+url3_c = '&page='
+
+html = urlopen(url1_c + url2_c + url3_c)
+soup = BeautifulSoup(html,'lxml')
+
+select_page = soup.find_all('select',id = 'page')
+print("\nPlease select the glass name for validation from below list and enter option value attribute")
+print(select_page)
+
+glass_name = input("Enter the the glass name from list : ")
 
 #open the specific link
 url = 'https://refractiveindex.info/?shelf=glass&book='
@@ -41,13 +56,13 @@ data_split = new_data2.split()
 #data for wavelengths
 index1 = int(data_split.index('data_n_wl='))
 data_n_wl = data_split[index1 +1]
-print(data_n_wl)
+#print(data_n_wl)
     
 #data for refractive index
 index2 = int(data_split.index('data_n='))
-print('\n')
+#print('\n')
 data_n = data_split[index2 + 1]
-print(data_n)
+#print(data_n)
     
 #make list and represent with float number (for wavelengths and refractive index)
 n_wl_split = data_n_wl.split(',')
@@ -59,6 +74,9 @@ for i in range(len(n_wl_split)):
     table.add_row([float(n_wl_split[i]),float(n_split[i])])
     print(table)
         
+
+
+
 
 #open the directory and files
 #calculated refractive index
