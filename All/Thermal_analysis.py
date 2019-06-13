@@ -58,7 +58,7 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
             n_abs_dcon = (n_abs_derivative)*1000000
             plt.plot(T,n_abs_dcon,'r-',label = float(wavelength)*1000,c=next(color_cycle))
             plt.xlabel('Surface Temperature',fontsize = 14)
-            plt.ylabel('Derivative of n_abs' , fontsize = 14)
+            plt.ylabel('Derivative of n_abs(10^-6)' , fontsize = 14)
             plt.legend()
             plt.savefig(os.path.abspath('Plots\\'+'n_abs_derivative_vs_temperature'+plot_name+'.png'))
             
@@ -157,7 +157,7 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
             n_rel_derivative = ((((((((n0*n0)-1.00)/(2.00*n0))*(D0 + (2.00*D1*(T-T0)) + (3.00*D2*(T-T0)*(T-T0)) + ((E0 + (2.00*E1*(T-T0)))/((wavelength*wavelength)-(Ltk*Ltk))) ))) - ((((n0  +  ((((((n0*n0)-1.00)/(2.00*n0))*((D0*(T-T0)) + (D1*(T-T0)*(T-T0)) + (D2*(T-T0)*(T-T0)*(T-T0)) + (((E0*(T-T0)) + (E1*(T-T0)*(T-T0)))/((wavelength*wavelength)-(Ltk*Ltk))) )))/((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*P)/((1.0000 + 0.0034785*(T0 - 15))*101325) )))))*(((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*P)/((1.0000 + 0.0034785*(T0 - 15))*101325) )))/((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) )))))*(((-0.00367)*((((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) ))-1)/(1+0.00367*T))))))/((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) ))))*1000000  
             plt.plot(T,n_rel_derivative,'r-',label = (float(wavelength)*1000),c=next(color_cycle))
             plt.xlabel('Surface Temperature',fontsize = 14)
-            plt.ylabel('Derivative of n_rel' , fontsize = 14)
+            plt.ylabel('Derivative of n_rel(10^-6)' , fontsize = 14)
             plt.legend()
             plt.savefig(os.path.abspath('Plots\\'+'n_rel_derivative_vs_temperature'+plot_name3+'.png'))
         

@@ -11,6 +11,8 @@ Created on Mon Jun 10 14:20:19 2019
 
 @author: crystal
 """
+import matplotlib.pyplot as plt
+import csv
 from prettytable import PrettyTable
 import Formulas as formula_file
 import os
@@ -104,7 +106,7 @@ while True:
 
         #open the directory and files
         #calculated refractive index
-        glass_name = input("\nEnter the name of glass type :  ")  
+        glass_name = input("\nEnter the name of glass type for calculated RI :  ")  
         for filename in os.listdir(os.path.abspath('AGF\\')):
             file_name_string=str(filename)
     
@@ -270,12 +272,31 @@ for i in range(0,len(list_web_wl)):
     difference_RI = float(list_web_r[i]) - float(list_cal_r[i])
     list_diff.append(difference_RI)
 
-for i in range(0,len(list_web_wl)):
-    table = PrettyTable()
-    table.field_names = ["Glass name", "Glass catalog" , "Refractive index in web", "Refractive index calculated" , "Difference of RI"]
-    table.add_row([list_glass_n[i],list_catalog[i],list_web_r[i],list_cal_r[i],list_diff[i]])
+with open(os.path.abspath('Plots\\Verification\\'+'n_diff_table_verification.csv'),mode = 'w') as data:
+    file = csv.writer(data)
+    file.writerow(["Glass name", "Glass catalog" , "Wavelength","Refractive index in web", "Refractive index calculated" , "Difference of RI"])
+    for i in range(0,len(list_web_wl)):
+        table = PrettyTable()
+        table.field_names = ["Glass name", "Glass catalog" , "Wavelength","Refractive index in web", "Refractive index calculated" , "Difference of RI"]
+        table.add_row([list_glass_n[i],list_catalog[i],list_web_wl[i],list_web_r[i],list_cal_r[i],list_diff[i]])
+        print(table)
+        #save the table in csv file
+        file.writerow([list_glass_n[i],list_catalog[i],list_web_wl[i],list_web_r[i],list_cal_r[i],list_diff[i]])
+    
 
-print(table)
+#plot between difference and glass type
+plt.figure(figsize=(15,10))
+for i in range(0,len(list_web_wl)):
+    
+    
+    plt.scatter(list_glass_n[i],(float(list_diff[i])*10000000000000),s=60)
+    plt.xlabel('Glass name',fontsize = 14)
+    plt.xticks(rotation = 90)
+    plt.ylabel('Refractive_index_difference (10^-13)' , fontsize = 14)
+    plt.legend() 
+    plt.savefig(os.path.abspath('Plots\\Verification\\'+'n_diff_verification.png'))
+plt.show()
+
 
 
 
