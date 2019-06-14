@@ -265,6 +265,7 @@ while True:
             
             else:
                 print('\nThere is no glass with name ' + glass_name + ' in file ' + filename)             
+    
     else:
         break
 
@@ -274,6 +275,7 @@ for i in range(0,len(list_web_wl)):
 
 with open(os.path.abspath('Plots\\Verification\\'+'n_diff_table_verification.csv'),mode = 'w') as data:
     file = csv.writer(data)
+    file.writerow("zero means no data available in the given catalog")
     file.writerow(["Glass name", "Glass catalog" , "Wavelength","Refractive index in web", "Refractive index calculated" , "Difference of RI"])
     for i in range(0,len(list_web_wl)):
         table = PrettyTable()
