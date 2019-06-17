@@ -215,9 +215,11 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
                     
                     #calculated data list
                     data_cal_n_list =[]
+                    temp_list=[]
                     for i in range(0,len(data_list),2):
                         #temperature
                         T=float(data_list[i])
+                        temp_list.append(data_list[i])
                         
                         #refractive index at reference temperature
                         n0 = formula_file.formula_thermal_name(formula_name1,wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
@@ -257,8 +259,9 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
                     plt.figure(figsize=(15,10))
                     for i in range(0,len(data_giv_n_list),1):
     
-                        plt.scatter(i,(float(diff_list[i])),s=60)
-                        plt.xlabel(glass_name,fontsize = 14)
+                        plt.scatter((float(temp_list[i])),(float(diff_list[i])),s=60)
+                        plt.title(glass_name)
+                        plt.xlabel("Temperature (C)",fontsize = 14)
                         plt.xticks(rotation = 90)
                         plt.ylabel('Difference of derivative of absolute refractive index(10^-6)' , fontsize = 12)
                         
@@ -276,7 +279,7 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
                 #give the value of wavelength
                 wavelength = float(1060)
                 wavelength=wavelength/1000
-                P=float(103250)
+                P=float(101330)
                 
                 #open the file
                 with open(os.path.abspath('Data\\Verification_of_temperature_effect\\Temp_data\\'+glass_name+'\\'+glass_name+'_2.txt'))  as file:
@@ -291,9 +294,11 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
                     
                     #calculated data list
                     data_cal_n_list =[]
+                    temp_list=[]
                     for i in range(0,len(data_list),2):
                         #temperature
                         T=float(data_list[i])
+                        temp_list.append(data_list[i])
                         
                         #refractive index at reference temperature
                         n0 = formula_file.formula_thermal_name(formula_name1,wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
@@ -333,8 +338,9 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
                     plt.figure(figsize=(15,10))
                     for i in range(0,len(data_giv_n_list),1):
     
-                        plt.scatter(i,(float(diff_list[i])),s=60)
-                        plt.xlabel(glass_name,fontsize = 14)
+                        plt.scatter(float(temp_list[i]),(float(diff_list[i])),s=60)
+                        plt.title(glass_name)
+                        plt.xlabel("Temperature (C)",fontsize = 14)
                         plt.xticks(rotation = 90)
                         plt.ylabel('Difference of derivative of relative refractive index (10^-6)' , fontsize = 12)
                     
