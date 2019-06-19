@@ -187,7 +187,7 @@ def thermal_describtion_glass(glass_name,wavelength,P,T):
             n_air_15 = (1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))
             
             #refractive index(air) at temperature T0 and pressure 101330 Pa
-            n_air_catT0 = (1.0000  +  (((n_air_15 - 1)*P)/((1.0000 + 0.0034785*(T0 - 15))*101325) ))
+            n_air_catT0 = (1.0000  +  (((n_air_15 - 1)*101325)/((1.0000 + 0.0034785*(T0 - 15))*101325) ))
                 
             #refractive index(air) at temperature T and Pressure P Pa
             n_air_catT = (1.0000  +  (((n_air_15 - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) )
