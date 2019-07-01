@@ -86,7 +86,7 @@ for i in range(10):
 #h=height, R=radius of lens or inverse of curvature
 
 
-image_dist = ((R)-1.5)
+image_dist = (R - (thickness/2))
 initial_object_dist = float(input("Enter the z-axis distance from vertex of lens to pupil :  "))
 OPD_list=[]
 h3_list=[]
@@ -96,9 +96,6 @@ for i in range(len(frag_pupil_list)):
 
     sag_sphere =  float( (h*h)/(R + ((R*R) - (h*h))**(1/2)) )
     sag_max = float( (semi_diameter1*semi_diameter1)/(R + ((R*R) - (semi_diameter1*semi_diameter1))**(1/2)) )
-
-
-
 
 
     #height at surface1
@@ -141,7 +138,7 @@ for i in range(len(frag_pupil_list)):
     #height
     if angle_2 != 0 :
         x= Symbol('x')
-        sol2 = solve( (h_1 + ((m.tan(angle_2*m.pi/180)) * (thickness - (float( (h_1*h_1)/(R + ((R*R) - (h_1*h_1))**(1/2)) )) - ( (x*x)/(R + ((R*R) - (x*x))**(1/2)) ) )) - x), x)
+        sol2 = solve( (h_1 + ((m.tan(angle_2*m.pi/180)) * (thickness  - (float( (h_1*h_1)/(R + ((R*R) - (h_1*h_1))**(1/2)) )) - ( (x*x)/(R + ((R*R) - (x*x))**(1/2)) ) )) - x), x)
         h_2 = float(re(sol2[0]))
         
     if angle_2 == 0:
@@ -177,7 +174,6 @@ for i in range(len(frag_pupil_list)):
 
     sag_sphere_h1 =  float( (h_1*h_1)/(R + ((R*R) - (h_1*h_1))**(1/2)) )
     sag_sphere_h2 =  float( (h_2*h_2)/(R + ((R*R) - (h_2*h_2))**(1/2)) )  
-
     if angle_3 != 0 :
         x= Symbol('x')
         sol3 = solve( (h_2 + ((m.tan(angle_3*m.pi/180)) * (image_dist + sag_sphere_h2)) - x), x)
