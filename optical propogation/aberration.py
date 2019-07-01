@@ -9,59 +9,84 @@ import matplotlib.pyplot as plt
 import math as m
 from sympy.solvers import solve
 from sympy import Symbol
+from sympy.functions import re
 import os
 import pandas as pd
 import numpy as np
+import get_refractive_index_temperature as n_m
 
-def extract_params_get_ABCD(lensdata_filename=os.path.abspath("lens_train1.csv"), \
-    starting_surface=1, ending_surface=None):
+lensdata_filename=os.path.abspath("lens_train1.csv")
     
-    df=pd.read_csv(lensdata_filename)
-    df = df.replace(np.nan, '', regex=True)
-    #############################################
-    #Currently using standard surfaces
-    #Later other surface types to be included
-    #############################################
-    df=df[df['Type']=="STANDARD"]
-    num_surfaces=len(df)
-    surface_number_zemax_file=np.array(df['#'], dtype='int')
-    type_of_surface=list(df['Type'])
-    radius_of_curvature=1e-3/(np.array(df['Curvature'])+1e-15)
-    glass_name=list(df['Glass'])
-    #refractive_index=get_refractive_index(glass_name)
-    distance=np.array(df['Thickness'], dtype='float')*1e-3  #Factor for mm to m conversion
-    semi_diameter=np.array(df['Semi-Diameter'], dtype='float')*1e-3
-    conic=np.array(df['Conic'], dtype='float')
-    param0=np.array(df['Parameter 0'], dtype='float')
-    param1=np.array(df['Parameter 1'], dtype='float')
-    param2=np.array(df['Parameter 2'], dtype='float')
-    param3=np.array(df['Parameter 3'], dtype='float')
-    
- 
-extract_params_get_ABCD(lensdata_filename=os.path.abspath("lens_train1.csv"), \
-    starting_surface=1, ending_surface=None)
+df=pd.read_csv(lensdata_filename)
+df = df.replace(np.nan, '', regex=True)
+#############################################
+#Currently using standard surfaces
+#Later other surface types to be included
+#############################################
+f=df[df['Type']=="STANDARD"]
+num_surfaces=len(df)
+surface_number_zemax_file=np.array(df['#'], dtype='int')
+type_of_surface=list(df['Type'])
+radius_of_curvature=1/(np.array(df['Curvature'])+1e-15)
+glass_name=list(df['Glass'])
+distance=np.array(df['Thickness'], dtype='float')  #Factor for mm to m conversion
+semi_diameter=np.array(df['Semi-Diameter'], dtype='float')
+conic=np.array(df['Conic'], dtype='float')
+param0=np.array(df['Parameter 0'], dtype='float')
+param1=np.array(df['Parameter 1'], dtype='float')
+param2=np.array(df['Parameter 2'], dtype='float')
+param3=np.array(df['Parameter 3'], dtype='float')
 
-#for parexial rays angle=0
-angle = float(input("Enter the incident angle in radian : "))
+surface_number = int(input("Enter the surface number "))
+print("surface number is ",end = ' ')
+print(surface_number)
+type_surface = type_of_surface[surface_number]
+print("surface type is ",end= ' ')
+print(type_surface)
+R = radius_of_curvature[surface_number]
+print("radius of lens is ",end= ' ')
+print(R)
+glass= glass_name[surface_number]
+print("glass name is "  , end=' ')
+print(glass)
+thickness = distance[surface_number]
+print("thickness of lens is ",end=' ')
+print(thickness)
+semi_diameter1 = semi_diameter[surface_number]
+print("semi diameter of lens is ",end=' ')
+print(semi_diameter1)
+
+#medium refractive index
+pressure = float(input("enter the pressure in pa " ))
+temperature = float(input("enter the temeperature in C " ))
+wavelength = float(input("enter the wavelength in nm "))
+n_m.thermal_describtion_glass(glass,wavelength,pressure,temperature)
+
+n_air =float(input("enter the air refractive index from above list "))
+n_medium =float(input("enter the medium refractive index from above list "))
+
+
+#for paraxial rays angle=0
+angle = float(input("Enter the incident angle in degree : "))
 
 #defining pupilsource size and dividing into equal parts
-semi_diameter = float(input("Enter the semi diameter in mm : "))
+
 range_pupil_max = float(input("Please enter the maximum range of the pupil in positive y direction in mm:  "))
 range_pupil_min = float(input("Please enter the minimum range of the pupil in negative y direction in mm:  "))
-equal_divide_pupil = float((range_pupil_max - range_pupil_min)/20)
+equal_divide_pupil = float((range_pupil_max - range_pupil_min)/10)
 frag_pupil_list=[]
 frag_pupil_list.append(range_pupil_min)
 x = range_pupil_min
-for i in range(20):
+for i in range(10):
     x = x + equal_divide_pupil
     frag_pupil_list.append(x)
     
 
 #defining sag for spherical surfaces 
 #h=height, R=radius of lens or inverse of curvature
-thickness = float(input("Enter the thickness in mm : " ))
-R = float(input("Enter the radius of the spherical lens : "))
-image_dist = ((R)-(thickness/2))
+
+
+image_dist = ((R)-1.5)
 initial_object_dist = float(input("Enter the z-axis distance from vertex of lens to pupil :  "))
 OPD_list=[]
 h3_list=[]
@@ -70,7 +95,7 @@ for i in range(len(frag_pupil_list)):
 
 
     sag_sphere =  float( (h*h)/(R + ((R*R) - (h*h))**(1/2)) )
-    sag_max = float( (semi_diameter*semi_diameter)/(R + ((R*R) - (semi_diameter*semi_diameter))**(1/2)) )
+    sag_max = float( (semi_diameter1*semi_diameter1)/(R + ((R*R) - (semi_diameter1*semi_diameter1))**(1/2)) )
 
 
 
@@ -80,13 +105,12 @@ for i in range(len(frag_pupil_list)):
     if angle != 0 :
         x= Symbol('x')
         sol = solve( (h + ((m.tan(angle*m.pi/180)) * (initial_object_dist +  ((x*x)/(R + ((R*R) - (x*x))**(1/2)) ) )) - x), x)
-        h_1 = float(sol[0])
+        h_1 = float(re(sol[0]))
     if angle == 0:
         h_1 =float(h) 
          
     #angles at surface1
-    n_air =float(1)
-    n_medium =float(1.5)
+   
     if h_1>0:
         angle_r_1 = (m.asin( h_1/R ))*180/m.pi
         t_angle = angle_r_1 + angle
@@ -118,12 +142,11 @@ for i in range(len(frag_pupil_list)):
     if angle_2 != 0 :
         x= Symbol('x')
         sol2 = solve( (h_1 + ((m.tan(angle_2*m.pi/180)) * (thickness - (float( (h_1*h_1)/(R + ((R*R) - (h_1*h_1))**(1/2)) )) - ( (x*x)/(R + ((R*R) - (x*x))**(1/2)) ) )) - x), x)
-        h_2 = float(sol2[0])
+        h_2 = float(re(sol2[0]))
+        
     if angle_2 == 0:
         h_2 = h_1
-    
-    #if angle_2 !=0:
-     ##  h_2 = float(sol2[0])
+
     print("\n   Height at surface two is ",end= ' ' )
     print(h_2)
     print("\n   Angle 3 at surface two is ", end= ' ')
@@ -158,7 +181,7 @@ for i in range(len(frag_pupil_list)):
     if angle_3 != 0 :
         x= Symbol('x')
         sol3 = solve( (h_2 + ((m.tan(angle_3*m.pi/180)) * (image_dist + sag_sphere_h2)) - x), x)
-        h_3 = float(sol3[0])
+        h_3 = float(re(sol3[0]))
     if angle_3 == 0:
         h_3 = h_2
     print("\n   Height at image plane would be ",end= ' ')
