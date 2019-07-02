@@ -49,12 +49,17 @@ print(R)
 glass= glass_name[surface_number]
 print("glass name is "  , end=' ')
 print(glass)
-thickness = distance[surface_number]
-print("thickness of lens is ",end=' ')
-print(thickness)
+
 semi_diameter1 = semi_diameter[surface_number]
 print("semi diameter of lens is ",end=' ')
 print(semi_diameter1)
+sag_max = float( (semi_diameter1*semi_diameter1)/(R + ((R*R) - (semi_diameter1*semi_diameter1))**(1/2)) )
+print("thickness should be greater than ",end= ' ' )
+print(2*sag_max)
+thickness = distance[surface_number]
+print("thickness of lens is ",end=' ')
+print(thickness)
+
 
 #medium refractive index
 pressure = float(input("enter the pressure in pa " ))
@@ -86,7 +91,7 @@ for i in range(10):
 #h=height, R=radius of lens or inverse of curvature
 
 
-image_dist = (R - (thickness/2))
+image_dist = (R + 3)
 initial_object_dist = float(input("Enter the z-axis distance from vertex of lens to pupil :  "))
 OPD_list=[]
 h3_list=[]
@@ -108,11 +113,14 @@ for i in range(len(frag_pupil_list)):
          
     #angles at surface1
    
-    if h_1>0:
+    if h_1>0 :
         angle_r_1 = (m.asin( h_1/R ))*180/m.pi
         t_angle = angle_r_1 + angle
         angle_2 = ((m.asin( (n_air*(m.sin(t_angle*m.pi/180))/n_medium) ))*180/m.pi - angle_r_1)
-       
+    if h_1 == 0:
+        angle_r_1 = (m.asin( h_1/R ))*180/m.pi
+        t_angle = angle_r_1 + angle
+        angle_2 = ((m.asin( (n_air*(m.sin(t_angle*m.pi/180))/n_medium) ))*180/m.pi - angle_r_1)
     if h_1<0:
         angle_r_1 = float(m.asin(-h_1/R ) )*180/m.pi
         t_angle = float(angle_r_1 - angle)
@@ -158,7 +166,10 @@ for i in range(len(frag_pupil_list)):
       angle_r_2 = (m.asin( h_2/R ))*180/m.pi
       t_angle = angle_r_2 - (angle_2)
       angle_3 = ((-(m.asin( (n_medium*(m.sin(t_angle*m.pi/180))/n_air) ))*180/m.pi) + angle_r_2)
-     
+    if h_2==0:
+      angle_r_2 = (m.asin( h_2/R ))*180/m.pi
+      t_angle = angle_r_2 - (angle_2)
+      angle_3 = ((-(m.asin( (n_medium*(m.sin(t_angle*m.pi/180))/n_air) ))*180/m.pi) + angle_r_2)
 
         
     if h_2<0:
