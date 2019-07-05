@@ -180,7 +180,7 @@ for i in range(len(frag_pupil_list)):
 
     print("\n   Height at surface two is ",end= ' ' )
     print(h_2)
-    print("\n   Angle 4 at surface one is ", end= ' ')
+    print("\n   Angle 4 at surface two is ", end= ' ')
     print(angle_3)  
 
     sag_sphere_h1 =  float( (h_1*h_1)/(R + ((R*R) - (h_1*h_1))**(1/2)) )
@@ -219,4 +219,6 @@ plt.plot(h3_list,frag_pupil_list,'r-')
 plt.xlabel("final height in mm")
 plt.ylabel("inital height in mm")
 plt.show()
+
+#0*(OPD1 + OPD2 + OPD3 + OPD4 +OPD5 +OPD6 +OPD7) 
 

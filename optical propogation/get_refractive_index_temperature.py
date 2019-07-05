@@ -12,6 +12,8 @@ import Formulas as formula_file
 #please enter the wavelength in nm, temperature in celcius and pressure in Pa
 def thermal_describtion_glass(glass_name,wavelength,P,T):
     
+   
+    
     wavelength=wavelength/1000
     #open the directory and files
     for filename in os.listdir(os.path.abspath('AGF\\')):
@@ -27,7 +29,7 @@ def thermal_describtion_glass(glass_name,wavelength,P,T):
         #check the condition for name in that list
         if glass_name in file_contents_list :    
             #print the glass name
-            print('\nGlass name is in the '+ file_name_string + ' catalog')
+            #print('\nGlass name is in the '+ file_name_string + ' catalog')
             print('\nGlass name is ' + glass_name)
          
             #find the index of the glass name
@@ -174,10 +176,10 @@ def thermal_describtion_glass(glass_name,wavelength,P,T):
                     n0 = formula_file.formula_thermal_name(formula_name1,wavelength,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9)
      
     
-            print("\nRefractive index at reference temperature is n0 :  ",end= '')
-            print(float(n0))
-            print("Temperature is :  ",end= ' ' )
-            print(T0)
+            #print("\nRefractive index at reference temperature is n0 :  ",end= '')
+            #print(float(n0))
+            #print("Temperature is :  ",end= ' ' )
+            #print(T0)
      
             #required equations
             #change of absolute refractive index with temperature
@@ -191,22 +193,27 @@ def thermal_describtion_glass(glass_name,wavelength,P,T):
                 
             #refractive index(air) at temperature T and Pressure P Pa
             n_air_catT = (1.0000  +  (((n_air_15 - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) )
-            print("\nRefractive index of air at given temperature and pressure is : ",end=' ')
-            print(n_air_catT)
+            thermal_describtion_glass.n_air_catT = n_air_catT
+            #print("\nRefractive index of air at given temperature and pressure is : ",end=' ')
+            #print(n_air_catT)
             
             n_rel_givenT = (n0  +  (n_abs_change/n_air_catT0))*(n_air_catT0/n_air_catT)
-     
-            print("\nRefractive index at given temperature is : ",end = ' ' )
-            print(n_rel_givenT)
-            print("Temperature is :  ",end =' ')
-            print(T)
+            thermal_describtion_glass.n_rel_givenT = n_rel_givenT
+            
+            
+            #print("\nRefractive index at given temperature is : ",end = ' ' )
+            #print(n_rel_givenT)
+            #print("Temperature is :  ",end =' ')
+            #print(T)
         else:
-            print('\nThere is no glass with name ' + glass_name + ' in file ' + filename)
+            #print('\nThere is no glass with name ' + glass_name + ' in file ' + filename)
+            continue
 
-if __name__ == "__main__":
-    glass_name = input("\nEnter the name of glass type :  ")
-    wavelength = float(input("\nEnter the wavelength in nm : "))
-    T =float(input("\nEnter the temeperature of surrounding in celcius : "))
-    P=float(input("\nEnter the pressure of surrounding in Pa : "))
-    thermal_describtion_glass(glass_name,wavelength,P,T)
+
+if __name__ == "__main__" :
+        glass_name = input("\nEnter the name of glass type :  ")
+        wavelength = float(input("\nEnter the wavelength in nm : "))
+        T =float(input("\nEnter the temeperature of surrounding in celcius : "))
+        P=float(input("\nEnter the pressure of surrounding in Pa : "))
+        thermal_describtion_glass(glass_name,wavelength,P,T)
     
