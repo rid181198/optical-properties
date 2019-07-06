@@ -125,8 +125,8 @@ def thermal_describtion_glass(glass_name,temperature_list,formula_number,formula
             T = np.arange(-100,140,0.01)
             n_rel_givenT = ((n0  +  ((((((n0*n0)-1.00)/(2.00*n0))*((D0*(T-T0)) + (D1*(T-T0)*(T-T0)) + (D2*(T-T0)*(T-T0)*(T-T0)) + (((E0*(T-T0)) + (E1*(T-T0)*(T-T0)))/((wavelength*wavelength)-(Ltk*Ltk))) )))/((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*101325)/((1.0000 + 0.0034785*(T0 - 15))*101325) )))))*(((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*101325)/((1.0000 + 0.0034785*(T0 - 15))*101325) )))/((1.0000  +  (((((1.0000 + ((0.00000001)*(6432.8 + ((2949810*wavelength*wavelength)/((146*wavelength*wavelength)-1.0000)) +  ((25540*wavelength*wavelength)/((41*wavelength*wavelength)-1)) )))) - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) ))))
             plt.plot(T,n_rel_givenT,'r-',label = float(wavelength)*1000,c=next(color_cycle))
-            plt.xlabel("Temperature",fontsize = 16)
-            plt.ylabel("Refractive index",fontsize =16)
+            plt.xlabel("Temperature",fontsize = 22)
+            plt.ylabel("Refractive index",fontsize =22)
             plt.legend()
             plt.savefig(os.path.abspath('Plots\\'+'n_vs_temperature'+plot_name2+'.png'))
         else :
@@ -262,9 +262,9 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
     
                         plt.scatter((float(temp_list[i])),(float(diff_list[i])),s=60)
                         plt.title(glass_name)
-                        plt.xlabel("Temperature (C)",fontsize = 14)
+                        plt.xlabel("Temperature (C)",fontsize = 19)
                         plt.xticks(rotation = 90)
-                        plt.ylabel('Difference of derivative of absolute refractive index(10^-6)' , fontsize = 12)
+                        plt.ylabel('Difference of derivative of absolute refractive index(10^-6)' , fontsize = 19)
                         
                         plt.savefig(os.path.abspath('Plots\\Verification\\'+'derivative_n_abs_change_plot.png'))
                     plt.show()
@@ -341,9 +341,9 @@ def verification_thermal(glass_name,temperature_list,formula_number,formula_name
     
                         plt.scatter(float(temp_list[i]),(float(diff_list[i])),s=60)
                         plt.title(glass_name)
-                        plt.xlabel("Temperature (C)",fontsize = 14)
+                        plt.xlabel("Temperature (C)",fontsize = 19)
                         plt.xticks(rotation = 90)
-                        plt.ylabel('Difference of derivative of relative refractive index (10^-6)' , fontsize = 12)
+                        plt.ylabel('Difference of derivative of relative refractive index (10^-6)' , fontsize = 19)
                     
                         plt.savefig(os.path.abspath('Plots\\Verification\\'+'derivative_n_rel_change_plot.png'))
                     plt.show()

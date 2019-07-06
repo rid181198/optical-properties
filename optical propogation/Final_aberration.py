@@ -69,7 +69,7 @@ def air_vertex(angle,initial_object_dist,i):
         
     #distance 
     OP = air_vertex.n_air*(initial_object_dist)/(m.cos(air_vertex.angle*m.pi/180))
-    OP_r = air_vertex.n_air * (initial_object_dist)    
+    OP_r = air_vertex.n_air * (initial_object_dist) 
     air_vertex.OPD = OP - OP_r
     
     
@@ -503,7 +503,7 @@ def iblock_air(length):
     
     #distance 
     OP = air_vertex.n_air*(length)/(m.cos(air_vertex.angle*m.pi/180))
-    OP_r = air_vertex.n_air * (length)    
+    OP_r = air_vertex.n_air * (length)
     iblock_air.OPD = OP - OP_r
     
     
