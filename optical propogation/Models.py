@@ -18,7 +18,7 @@ OPD_list =[]
 
 #model1 for verification with link https://ophysics.com/l14.html
 for i in range(len(fa.frag_pupil_list)):
-    fa.air_vertex(0,10,i)
+    fa.air_vertex(0.0,10,i)
     OPD1 = fa.air_vertex.OPD
     
     fa.convex_air_medium(10,6)
@@ -43,14 +43,16 @@ for i in range(len(fa.frag_pupil_list)):
 #plots
 plt.figure(figsize=(10,10))
 plt.plot(final_h,fa.frag_pupil_list,'r-')
-plt.xlabel("final height in mm")
-plt.ylabel("initial height from optical axis in mm") 
+plt.xlabel("final height in mm",fontsize=18)
+plt.ylabel("initial height from optical axis in mm",fontsize=18) 
+plt.savefig("final_initial.png")
 plt.show()
     
     
 plt.figure(figsize=(10,10))
 plt.plot(OPD_list,fa.frag_pupil_list,'r-')
-plt.xlabel("OPD in mm")
-plt.ylabel("initial height from optical axis in mm")
+plt.xlabel("OPD in mm",fontsize=18)
+plt.ylabel("initial height from optical axis in mm",fontsize=18)
+plt.savefig("OPD_initial.png")
 plt.show()
     
