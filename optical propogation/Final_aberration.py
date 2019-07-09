@@ -39,11 +39,11 @@ for i in range(10):
 
 
 def sag_convex(h,R,semi_diameter):
-    sag = float( ((h*h)/(R + ((R*R) - (h*h))**(1/2))) )
+    sag = float( ((h*h)/(R + ((R*R) - (1.00)*(h*h))**(1/2) )  )  )
     return sag
 def sag_concave(h,R,semi_diameter):
     sag_max = sag_convex(h,R,semi_diameter)
-    sag = sag_max - float( ((h*h)/(R + ((R*R) - (h*h))**(1/2))) )
+    sag = sag_max - float( ((h*h)/(R + ((R*R) - (1.00)*(h*h))**(1/2)))  )
     return sag
 
 
@@ -59,6 +59,9 @@ def air_vertex(angle,initial_object_dist,i):
     air_vertex.n_medium = n_m.thermal_describtion_glass.n_rel_givenT
  
     air_vertex.h = frag_pupil_list[i]
+    
+    air_vertex.n_air =1
+    air_vertex.n_medium =1.5
     
     
     #height at the plane passing through vertex
@@ -88,13 +91,14 @@ def convex_air_medium(R,semi_diameter):
     n_medium = n_m.thermal_describtion_glass.n_rel_givenT
     n_air = air_vertex.n_air
     
+    n_medium=1.5
     R = R
     semi_diameter = semi_diameter
     
     #height at the surface
     if air_vertex.angle != 0 :
         x = Symbol('x')
-        sol = solve((air_vertex.h + (m.tan(air_vertex.angle*m.pi/180)) * (( (x*x)/(R + ((R*R) - (x*x))**(1/2)) )) - x) ,x)
+        sol = solve((air_vertex.h + (m.tan(air_vertex.angle*m.pi/180)) * ( ((x*x)/(R + ((R*R) - (1.00)*(x*x))**(1/2) )  )   ) - x) ,x)
         air_vertex.h = float(re(sol[0]))
     if air_vertex.angle == 0:
         air_vertex.h =float(air_vertex.h)
@@ -362,6 +366,8 @@ def concave_medium_air(R,semi_diameter):
     n_medium = n_m.thermal_describtion_glass.n_rel_givenT
     n_air = air_vertex.n_air
     
+    
+    n_medium=1.5
     R = R
     semi_diameter = semi_diameter
     sag_max = sag_convex(semi_diameter,R,semi_diameter)
@@ -369,7 +375,7 @@ def concave_medium_air(R,semi_diameter):
     #height at the surface
     if air_vertex.angle != 0 :
         x = Symbol('x')
-        sol = solve((air_vertex.h + (m.tan(air_vertex.angle*m.pi/180)) * (( sag_max - (x*x)/(R + ((R*R) - (x*x))**(1/2)) )) - x) ,x)
+        sol = solve((air_vertex.h + (m.tan(air_vertex.angle*m.pi/180)) * (( sag_max - ( ((x*x)/(R + ((R*R) - (1.00)*(x*x))**(1/2) )  )  ) )) - x) ,x)
         air_vertex.h = float(re(sol[0]))
     if air_vertex.angle == 0:
         air_vertex.h =float(air_vertex.h)
